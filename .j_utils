@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Git Blame Statistics
 blame() {
 	git ls-files | while read f; do git blame --line-porcelain $f | grep '^author '; done | sort -f | uniq -ic | sort -n
@@ -71,17 +73,6 @@ newBranch() {
     git checkout master
     git pull
     git checkout -b "$1"
-}
-
-
-# Create new project from boilerplate repo
-fromTemplate() {
-    cd ~/Desktop
-    mkdir "$1"
-    git clone scaffold-js "$1"
-    cd "$1"
-    rm -rf .git
-    yarn
 }
 
     
