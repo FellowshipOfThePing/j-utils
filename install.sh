@@ -13,6 +13,7 @@ curl -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/FellowshipO
 
 echo "";
 echo -e "${ql_green}=> j_utils download succeeded.${ql_no_color}";
-echo -e "${ql_cyan}=> To complete installation of 'j_utils' add the following line to your .zshrc file:${ql_no_color}";
-echo ". ~/.j_utils";  # `.` is like `source` but more cross-platform
+echo -e "${ql_cyan}=> To complete installation of 'j-utils' add the following line to your .zshrc file:${ql_no_color}";
+echo ". ~/.j_utils";
 echo "";
+
