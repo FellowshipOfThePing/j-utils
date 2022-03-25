@@ -1,0 +1,118 @@
+# Git Blame Statistics
+blame() {
+	git ls-files | while read f; do git blame --line-porcelain $f | grep '^author '; done | sort -f | uniq -ic | sort -n
+}
+
+
+# Switch between branches for PR review
+review() {
+	# Update git repo
+	git fetch
+	git checkout $1
+	git pull
+	
+	# Clear Safari IndexedDB
+	rm -r ~/Library/Safari/Databases/___IndexedDB/v1/http_localhost_3000
+
+	# Clear Chrome IndexedDB	
+	rm -r ~/Library/Application\ Support/Google/Chrome/Default/IndexedDB/
+
+	# Run app
+	yarn
+	vercel env pull
+	vercel dev
+}
+
+
+# Get current Git branch
+getCurrentBranch() {
+    git rev-parse --abbrev-ref HEAD
+}
+
+
+# Copy current branch name to clipboard
+copyCurrentBranch() {
+    getCurrentBranch | pbcopy
+    echo "Copied $(getCurrentBranch) to clipboard"
+}
+
+
+# Update current or specified branch with master branch
+mergeMaster() {
+    currentBranch=$(git rev-parse --abbrev-ref HEAD)
+    givenBranch="${1:-${currentBranch}}"
+    git checkout master
+    git pull
+    git checkout "${givenBranch}"
+    git merge master
+}
+
+
+# Git add, commit, and push all in one command
+lazygit() {
+    git add .
+    git commit -a -m "$1"
+
+    if [[ "$2" == "-p" ]]
+    then
+        git push
+    fi
+}
+
+
+# Open this file from anywhere, for editing
+openZsh() {
+    open ~/.zshrc
+}
+
+
+# Create new branch off of master
+newBranch() {
+    git checkout master
+    git pull
+    git checkout -b "$1"
+}
+
+
+# Create new project from boilerplate repo
+fromTemplate() {
+    cd ~/Desktop
+    mkdir "$1"
+    git clone scaffold-js "$1"
+    cd "$1"
+    rm -rf .git
+    yarn
+}
+
+    
+# Get PG dump files for DB diff
+diffDB() {
+    echo "---Dev Dump---"
+    pg_dump -d postgres -h db.itieuycnprnbbplrizlk.supabase.co -p 5432 -U postgres -W -s -x -n public > dev_dump
+
+    echo "---Prod---"
+    pg_dump -d postgres -h db.idnxjfmgxagkzlpmtgry.supabase.co -p 5432 -U postgres -W -s -x -n public > prod_dump
+}
+
+
+# Clear localforage caches
+clearForage() {    
+    # Clear Safari IndexedDB
+    rm -r ~/Library/Safari/Databases/___IndexedDB/v1/http_localhost_3000
+
+    # Clear Chrome IndexedDB	
+    rm -r ~/Library/Application\ Support/Google/Chrome/Default/IndexedDB/
+}
+
+
+# Clear caches
+clearCaches() {
+    setopt localoptions rmstarsilent
+    rm -rf ~/Library/Caches/*
+}
+
+
+# Yarn install PWD (for local package development)
+yarnSelf() {
+    yarn global add file:$PWD
+}
