@@ -1,12 +1,19 @@
 #!/bin/bash
 
-# Git Blame Statistics
+
+# Update this file with latest changes from Git!
+updateJUtils() { 
+    curl -s https://raw.githubusercontent.com/FellowshipOfThePing/j-utils/master/install.sh | bash && source ~/.zshrc 
+}
+
+
+# Display abbreviate git blame statistics
 blame() {
 	git ls-files | while read f; do git blame --line-porcelain $f | grep '^author '; done | sort -f | uniq -ic | sort -n
 }
 
 
-# Switch between branches for PR review
+# Cleanly switch between branches for PR review
 review() {
 	# Update git repo
 	git fetch
@@ -62,7 +69,7 @@ lazygit() {
 }
 
 
-# Open this file from anywhere, for editing
+# Open shell profile from anywhere, for editing
 openZsh() {
     open ~/.zshrc
 }
@@ -73,16 +80,6 @@ newBranch() {
     git checkout master
     git pull
     git checkout -b "$1"
-}
-
-    
-# Get PG dump files for DB diff
-diffDB() {
-    echo "---Dev Dump---"
-    pg_dump -d postgres -h db.itieuycnprnbbplrizlk.supabase.co -p 5432 -U postgres -W -s -x -n public > dev_dump
-
-    echo "---Prod---"
-    pg_dump -d postgres -h db.idnxjfmgxagkzlpmtgry.supabase.co -p 5432 -U postgres -W -s -x -n public > prod_dump
 }
 
 
@@ -107,3 +104,4 @@ clearCaches() {
 yarnSelf() {
     yarn global add file:$PWD
 }
+
