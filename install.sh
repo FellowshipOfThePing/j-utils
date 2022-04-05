@@ -13,11 +13,11 @@ curl -H 'Cache-Control: no-cache' "https://raw.githubusercontent.com/FellowshipO
 --output "$HOME/.j_utils"
 
 # Import utils file to .zshrc
-if ! grep -qF ". ./.j_utils" ~/.zshrc ; 
+if ! grep -qF "[ -s ~/.j_utils ] && source ~/.j_utils" ~/.zshrc ; 
 then 
   echo >> ~/.zshrc;
   echo "# Import j-utils commands" >> ~/.zshrc;
-  echo ". ./.j_utils" >> ~/.zshrc;
+  echo "[ -s ~/.j_utils ] && source ~/.j_utils" >> ~/.zshrc;
 fi
 
 # Prompt user
