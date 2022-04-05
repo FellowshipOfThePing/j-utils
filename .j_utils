@@ -41,8 +41,15 @@ getCurrentBranch() {
 
 # Copy current branch name to clipboard
 copyCurrentBranch() {
-    getCurrentBranch | pbcopy
-    echo "Copied $(getCurrentBranch) to clipboard"
+    if [[ "$1" == "-f" ]]
+    then
+        formattedBranch=$(getCurrentBranch | tr - " ")
+        echo "${formattedBranch}" | pbcopy
+        echo "Copied ${formattedBranch} to clipboard"
+    else
+        echo "Copied $(getCurrentBranch) to clipboard"
+        getCurrentBranch | pbcopy
+    fi
 }
 
 
