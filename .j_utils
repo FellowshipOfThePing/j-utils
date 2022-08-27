@@ -113,3 +113,8 @@ yarnSelf() {
     yarn global add file:$PWD
 }
 
+
+# Setup new Node project based on js-boilerplate
+js-boilerplate() {
+    curl -s -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/FellowshipOfThePing/js-boilerplate/master/install.sh | bash
+}
