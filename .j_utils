@@ -21,10 +21,11 @@ review() {
 	git pull
 	
 	# Clear Safari IndexedDB
-	rm -r ~/Library/Safari/Databases/___IndexedDB/v1/http_localhost_3000
+    setopt localoptions rmstarsilent
+	rm -r ~/Library/Safari/Databases/___IndexedDB/v1/http_localhost_3000/*
 
 	# Clear Chrome IndexedDB	
-	rm -r ~/Library/Application\ Support/Google/Chrome/Default/IndexedDB/
+	rm -r ~/Library/Application\ Support/Google/Chrome/Default/IndexedDB/*
 
 	# Run app
 	yarn
@@ -93,10 +94,10 @@ newBranch() {
 # Clear localforage caches
 clearForage() {    
     # Clear Safari IndexedDB
-    rm -r ~/Library/Safari/Databases/___IndexedDB/v1/http_localhost_3000
+	rm -r ~/Library/Safari/Databases/___IndexedDB/v1/http_localhost_3000/*
 
-    # Clear Chrome IndexedDB	
-    rm -r ~/Library/Application\ Support/Google/Chrome/Default/IndexedDB/
+	# Clear Chrome IndexedDB	
+	rm -r ~/Library/Application\ Support/Google/Chrome/Default/IndexedDB/*
 }
 
 
