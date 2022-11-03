@@ -118,3 +118,14 @@ yarnSelf() {
 js-boilerplate() {
     curl -s -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/FellowshipOfThePing/js-boilerplate/master/install.sh | bash
 }
+
+
+# Undo last commit in local branch, so you can pull down remote updates, re-apply local changes, then push
+# NOTE: Not tested thoroughly yet
+fixLocal() {
+    git reset HEAD~
+    git stash
+    git pull
+    git stash apply
+    lazygit "$1" -p
+}
